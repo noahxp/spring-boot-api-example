@@ -24,7 +24,7 @@ my:
     server: myoms.com.tw
     sender: mail@myoms.com.tw
     locale: zh-tw
-  environment: dev
+  environment: prod
 
 your:
   date: 2010/01/01
