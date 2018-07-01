@@ -1,6 +1,7 @@
 package tw.noah.spring.boot.api.example.control;
 
 import javax.annotation.Resource;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,12 +11,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import tw.noah.spring.boot.api.example.entity.User;
+import tw.noah.spring.boot.api.example.exception.DataNotFoundException;
 import tw.noah.spring.boot.api.example.model.JsonModel;
 import tw.noah.spring.boot.api.example.model.JsonMsg;
 import tw.noah.spring.boot.api.example.service.CustomerService;
 
 @RestController
 @RequestMapping("/apis")
+@Log4j2
 public class CustomerController {
 
   @Resource
@@ -60,6 +63,16 @@ public class CustomerController {
     return ret;
   }
 
+
+  // client example : curl http://localhost:8080/apis/hi/noah
+  // curl http://localhost:8080/apis/hi/ -> get Http 400
+  //@RequestMapping(value="/hi/{user-name}", produces="application/json; charset=UTF-8")
+  @GetMapping(value="/ha")
+  @ResponseBody
+  public JsonModel sayHa(){
+    log.info("sayHa()..");
+    throw new DataNotFoundException("Data Not Found!");
+  }
 
 
 
