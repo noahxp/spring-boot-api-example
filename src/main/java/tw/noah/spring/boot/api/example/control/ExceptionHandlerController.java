@@ -1,6 +1,5 @@
 package tw.noah.spring.boot.api.example.control;
 
-import lombok.extern.log4j.Log4j;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import tw.noah.spring.boot.api.example.exception.DataNotFoundException;
 import tw.noah.spring.boot.api.example.exception.MyRuntimeException;
