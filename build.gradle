@@ -25,7 +25,8 @@ repositories {
 
 configurations.all {
 	exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
-	exclude group: 'org.slf4j'
+//	exclude group: 'org.slf4j'
+	exclude module: "logback-classic"
 }
 
 dependencies {
@@ -33,16 +34,27 @@ dependencies {
 
 	compile group: 'org.apache.logging.log4j', name: 'log4j-api'
 	compile group: 'org.apache.logging.log4j', name: 'log4j-core'
+	// binding slf4j to log4j2
+	compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.11.0'
+	// binding common-logging to log4j2
+	compile group: 'org.apache.logging.log4j', name: 'log4j-jcl', version: '2.11.0'
+
+
+
 	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.1'
 
 	compileOnly('org.projectlombok:lombok')
 	testCompileOnly('org.projectlombok:lombok')
 
 	// https://mvnrepository.com/artifact/io.swagger.core.v3/swagger-jaxrs2
-	compile group: 'io.swagger.core.v3', name: 'swagger-jaxrs2', version: '2.0.2'
+//	compile group: 'io.swagger.core.v3', name: 'swagger-jaxrs2', version: '2.0.2'
+
+	// https://mvnrepository.com/artifact/io.springfox/springfox-swagger2
+	compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+	compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
 
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
-	testCompile('org.springframework.restdocs:spring-restdocs-mockmvc')
+//	testCompile('org.springframework.restdocs:spring-restdocs-mockmvc')
 }
 
