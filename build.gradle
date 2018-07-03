@@ -14,6 +14,15 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+// for repackage as war , spring boot default is executeable jar
+// build command is "gradle build" , gradle 4.6 尚找不到可以改 war 檔名的方法，以下的 war 區塊設定無效
+apply plugin: 'war'
+//war {
+////	archiveName = 'ROOT.war'
+//	version = '' // no version
+//	baseName="filename"
+//}
+
 
 group = 'tw.noah'
 version = '0.0.1-SNAPSHOT'
@@ -23,6 +32,10 @@ repositories {
 	mavenCentral()
 }
 
+configurations {
+	providedRuntime
+}
+
 configurations.all {
 	exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
 //	exclude group: 'org.slf4j'
@@ -30,6 +43,9 @@ configurations.all {
 }
 
 dependencies {
+	// repackage as war , can't include tomcat library
+	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+
 	compile('org.springframework.boot:spring-boot-starter-web')
 
 	compile group: 'org.apache.logging.log4j', name: 'log4j-api'
