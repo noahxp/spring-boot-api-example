@@ -32,6 +32,7 @@ public class ExceptionHandlerController {
 	// internal 500 exception
 	@RestControllerAdvice
 	class GeneralErrorException {
+//		之前的舊寫法
 //		@ExceptionHandler(value = { Exception.class })
 //		@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 //		public JsonModel unknownException(Exception ex) {

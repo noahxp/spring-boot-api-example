@@ -47,6 +47,8 @@ dependencies {
 	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
 
 	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	compile('org.springframework.boot:spring-boot-starter-data-mongodb')
 
 	compile group: 'org.apache.logging.log4j', name: 'log4j-api'
 	compile group: 'org.apache.logging.log4j', name: 'log4j-core'

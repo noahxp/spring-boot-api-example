@@ -35,5 +35,6 @@ Spring Boot RESTful API 搭配 swagger 及 swagger ui 基本用法:
   
  
 ### 文件參考
- - https://swagger.io/tools/open-source/open-source-integrations/
  - https://swagger.io/docs/
+ - https://swagger.io/tools/open-source/open-source-integrations/
+ - https://github.com/swagger-api/swagger-core/wiki/annotations-1.5.x#api

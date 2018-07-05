@@ -1,12 +1,11 @@
 # special spring boot setting
-# server setting
-server:
-  port: 8080
 
-
-# 關閉 spring boot logo
+---
 spring:
+  profiles:
+    active: local
   main:
+    # 關閉 spring boot logo
     banner-mode: 'off'
   jpa:
     show-sql: true
@@ -24,9 +23,54 @@ my:
     server: myoms.com.tw
     sender: mail@myoms.com.tw
     locale: zh-tw
-  environment: dev
 
 your:
   date: 2010/01/01
   lists: 1,2,3,4,5
 
+
+---
+spring:
+  profiles: local
+
+proxy:
+  domain: 'none'
+  port: 0
+
+server:
+  port: 8080
+
+---
+spring:
+  profiles: dev
+
+proxy:
+  domain: dev.proxy.com
+  port: 3128
+
+server:
+  port: 8080
+
+
+---
+spring:
+  profiles: stg
+
+proxy:
+  domain: stg.proxy.com
+  port: 3128
+
+server:
+  port: 8080
+
+
+---
+spring:
+  profiles: prod
+
+proxy:
+  domain: prod.proxy.com
+  port: 3128
+
+server:
+  port: 8080

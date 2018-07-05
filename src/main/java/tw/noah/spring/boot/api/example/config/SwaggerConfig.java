@@ -1,6 +1,7 @@
 package tw.noah.spring.boot.api.example.config;
 
 
+import com.google.common.base.Predicates;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,12 +30,14 @@ public class SwaggerConfig {
         .build();
 
 
+    // /error is the default not found exception
     return new Docket(DocumentationType.SWAGGER_2)
         .apiInfo(info)
         .select()
         .apis(RequestHandlerSelectors.basePackage(basePackage))
-        .paths(PathSelectors.any())
+        .paths(Predicates.not(PathSelectors.regex("/error")))
         .build();
+//            .paths(PathSelectors.any())
   }
 
 }
