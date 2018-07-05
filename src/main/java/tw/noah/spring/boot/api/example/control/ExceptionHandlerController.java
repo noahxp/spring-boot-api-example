@@ -25,8 +25,8 @@ import tw.noah.spring.boot.api.example.model.JsonModel;
 @Log4j2
 public class ExceptionHandlerController {
   // if environment eq "dev" or "staging" , get detail exception.
-	@Value("${my.environment}")
-	private String environment;
+	@Value("${debug_mode}")
+	private boolean debugMode;
 
 
 	// internal 500 exception
@@ -54,7 +54,7 @@ public class ExceptionHandlerController {
 		@ExceptionHandler(value = { Exception.class,MyRuntimeException.class,ServletRequestBindingException.class,MethodArgumentTypeMismatchException.class})
 		public final ResponseEntity<JsonModel> handleAllExceptions(Exception ex) {
 			JsonModel jsonModel;
-			if ("dev".equals(environment) || "staging".equals(environment)){
+			if (debugMode){
 				jsonModel = new JsonModel(ExceptionUtils.getStackTrace(ex));
 			}else {
 				jsonModel = new JsonModel("ERROR.");
