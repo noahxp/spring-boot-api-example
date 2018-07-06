@@ -62,6 +62,10 @@ public class CustomerController {
   @ApiOperation(value = "跟 user-name 說 Hi (path param example" ,notes = "用 path param 說 hi 吧")
   @GetMapping(value="/hi/{user-name}",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   public JsonModel sayHello(@ApiParam(value="user's name",required = true) @PathVariable(name = "user-name") String userName){
+    if ("joe".equals(userName)){
+      throw new DataNotFoundException(userName + " is not found");
+    }
+
     JsonModel ret = new JsonModel();
     ret.setResult(customerService.sayHi(userName));
     ret.setMsg(JsonMsg.Success);
