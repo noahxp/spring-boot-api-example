@@ -51,8 +51,26 @@ public class ExceptionHandlerController {
 		 * @param ex
 		 * @return
 		 */
-		@ExceptionHandler(value = { Exception.class,MyRuntimeException.class,ServletRequestBindingException.class,MethodArgumentTypeMismatchException.class})
-		public final ResponseEntity<JsonModel> handleAllExceptions(Exception ex) {
+		@ExceptionHandler(value = { ServletRequestBindingException.class,MethodArgumentTypeMismatchException.class})
+		public final ResponseEntity<JsonModel> handleBadRequest(Exception ex) {
+			JsonModel jsonModel;
+			if (debugMode){
+				jsonModel = new JsonModel(ExceptionUtils.getStackTrace(ex));
+			}else {
+				jsonModel = new JsonModel("ERROR.");
+			}
+
+			return new ResponseEntity<>(jsonModel, HttpStatus.BAD_REQUEST);
+
+		}
+
+		/**
+		 * 使用一般錯誤物件的處理方式
+		 * @param ex
+		 * @return
+		 */
+		@ExceptionHandler(value = { Exception.class,MyRuntimeException.class})
+		public final ResponseEntity<JsonModel> handleInternalServerError(Exception ex) {
 			JsonModel jsonModel;
 			if (debugMode){
 				jsonModel = new JsonModel(ExceptionUtils.getStackTrace(ex));
@@ -63,12 +81,11 @@ public class ExceptionHandlerController {
 			if (ex instanceof MyRuntimeException) {
 				MyRuntimeException c = (MyRuntimeException) ex;
 				return new ResponseEntity<>(jsonModel, c.getStatus());
-			}else if (ex instanceof ServletRequestBindingException || ex instanceof  MethodArgumentTypeMismatchException){
-				return new ResponseEntity<>(jsonModel, HttpStatus.BAD_REQUEST);
 			}
 
 			return new ResponseEntity<>(jsonModel, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+
 
 		/**
 		 * 使用自定化錯誤物件的處理方式，http status 會從自定義的 annotation 裡捉的
@@ -76,7 +93,7 @@ public class ExceptionHandlerController {
 		 * @return
 		 */
 		@ExceptionHandler(value = {DataNotFoundException.class})
-		public final ResponseEntity<JsonModel> handleAllExceptions(DataNotFoundException ex) {
+		public final ResponseEntity<JsonModel> handleDataNotFoundException(DataNotFoundException ex) {
 			ResponseStatus responseStatus = DataNotFoundException.class.getAnnotation(ResponseStatus.class);
 			HttpStatus httpStatus = responseStatus.value();
 
